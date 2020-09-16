@@ -17,7 +17,9 @@ def compare_string(reg, str_) -> bool:
         return True
     elif not str_:
         return False
-    elif len(reg) > 1:
+
+    # wildcards
+    if len(reg) > 1:
         # '?' zero or one wildcard
         if reg[1] == '?':
                 return compare_string(reg[2:], str_) or compare_string(reg[2:], str_[1:])
@@ -31,7 +33,7 @@ def compare_string(reg, str_) -> bool:
                 return compare_string(reg.replace('+', '*', 1), str_[1:])
 
     # regular character comparison
-    elif compare_char(reg[0], str_[0]):
+    if compare_char(reg[0], str_[0]):
         return compare_string(reg[1:], str_[1:])
     else:
         return False
